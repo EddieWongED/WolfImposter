@@ -1,6 +1,6 @@
 import discord
+from discord.ext import commands
 import os
-from replit import db
 from keep_alive import keep_alive
 
 
@@ -10,7 +10,12 @@ client = discord.Client()
 async def createlist(message):
   role = []
   await message.channel.send('Number of wolves: ')
-  await discord.message.add_reaction(':zero:')
+  await bot.react(message, "name:one")
+
+@client.event
+async def on_reaction_add(reaction, user):
+    await print("1")
+
 
 @client.event
 async def on_ready():
@@ -26,7 +31,7 @@ async def on_message(message):
   if message.content.startswith('$hello'):
     await message.channel.send('Hello!')
     await message.react(':upside_down:')
-  
+
   if message.content.startswith('$start'):
     await createlist(message)
 
