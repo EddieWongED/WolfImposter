@@ -25,10 +25,7 @@ async def on_message(message):
 
   if message.content.startswith('$hello'):
     await message.channel.send('Hello!')
-    msgid = message.channel.send("text")
-    msgid = msgid.channel.fetch_message(messageid)
-    emoji = '\N{THUMBS UP SIGN}'
-    await msgid.add_reaction(emoji)
+    msgid = message.reaction('')
   
   if message.content.startswith('$start'):
     await createlist(message)
