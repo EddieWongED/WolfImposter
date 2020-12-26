@@ -15,6 +15,8 @@ bot_message_id = {}
 prefix = "$"
 onTask = False
 client = discord.Client()
+LastMessage = None
+Starting = False
 # reaction = discord.reaction()
 
 def main():
@@ -82,12 +84,16 @@ async def startgame(message):
       role_dict[temp_players.pop()] = temp_role.pop()
     except:
       role_dict[temp_players.pop()] = 'Trash'
+  await message.channel.send(const.GameStart)
 
 @client.event
 async def on_raw_reaction_add(payload):
+  # print(f'Payload:\n{payload}')
+  global LastMessage
   global bot_message_id
   global current_command
   global onTask
+  global Starting
   print(f'Current CMD: {current_command}')
   print(f'Sensing {payload.emoji.name},{payload.member.name}' )
   matched = False
@@ -105,7 +111,6 @@ async def on_raw_reaction_add(payload):
       if payload.emoji.name == const.emoji_check and payload.member.name not in in_game:
         in_game.append(payload.member.name)
         print(in_game)
-      pass
     elif current_command == "players":
       for number in const.numbers:
         if const.numbers[number] == payload.emoji.name:
@@ -134,6 +139,9 @@ async def on_raw_reaction_add(payload):
           prophet = number
           onTask = False
           print(f'Prophet:{prophet}')
+    print(f'testing, Starting: {Starting}')
+    if Starting and players != 0 and len(in_game) == players:
+      await startgame(LastMessage)
     
 
 @client.event
@@ -143,12 +151,15 @@ async def on_ready():
 
 @client.event
 async def on_message(message):
+  global LastMessage
   global bot_message_id
   global role_dict
   global onTask
+  global Starting
   print(bot_message_id)
   # print(f'The whole message:\n{message}')
   global current_command
+  LastMessage = message
   if (onTask):
     return
   first_text = message.content.split()[0]
@@ -190,7 +201,7 @@ async def on_message(message):
     start = await message.channel.send(const.Starting_str)
     bot_message_id["start"] = start.id
     await start.add_reaction(const.emoji_check)
-    await startgame(message)
+    Starting = True
 
   elif first_text[1:] in const.commands["role"] and first_text[0] == prefix:
     await message.channel.send(role_dict)

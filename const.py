@@ -33,3 +33,5 @@ React on the tick to join'''
 tooManyRoleError = '''***Error:***
 >>> ```css
 As the number of roles is greater than the number of players, the game is stopped.```'''
+
+GameStart = 'Players in game match the number of players, the game is starting.'
