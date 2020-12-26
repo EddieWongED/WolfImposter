@@ -25,7 +25,7 @@ async def on_message(message):
 
   if message.content.startswith('$hello'):
     await message.channel.send('Hello!')
-    msgid = message.reaction('')
+    await message.react(':upside_down:')
   
   if message.content.startswith('$start'):
     await createlist(message)
