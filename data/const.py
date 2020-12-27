@@ -12,6 +12,8 @@ emoji_witches = "🧙"
 emoji_players = "🧍"
 emoji_prophets = "📖"
 emoji_wolves = "🐺"
+emoji_plus = "➕"
+emoji_minus = "➖"
 
 numbers = {1:emoji_1, 2:emoji_2, 3:emoji_3, 4:emoji_4, 5:emoji_5, 6:emoji_6, 7:emoji_7, 8:emoji_8, 9:emoji_9}
 
@@ -25,6 +27,12 @@ commands = {
 "help": ["starter"], 
 "role": ["role"]}
 
+role_emoji_dict = {
+  "players": emoji_players,
+  "wolves": emoji_wolves,
+  "witches": emoji_witches,
+  "prophets": emoji_prophets
+}
 settings_str = '''Settings:
 >>>Set the amount of players: use $players
 >>>Set the amount of wolves: use $wolves

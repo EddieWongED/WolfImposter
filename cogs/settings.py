@@ -12,11 +12,14 @@ class Settings(commands.Cog):
   @commands.command(aliases=const.commands["settings"])
   async def settings(self, ctx):
     embed = discord.Embed(title="Settings", description="React to change the settings", color=0x00ff00)
-    for role in variable.role_no_emoji_dict:
-      embed.add_field(name="Number of " + role + variable.role_no_emoji_dict[role][1] + ":", value=variable.role_no_emoji_dict[role][0], inline=True)
+    embed.add_field(name="Number of Players" + const.emoji_players + ":", value=variable.players_no, inline=True)
+    embed.add_field(name="Number of Wolves" + const.emoji_wolves + ":", value=variable.wolves_no, inline=True)
+    embed.add_field(name="Number of Prophets" + const.emoji_prophets + ":", value=variable.prophets_no, inline=True)
+    embed.add_field(name="Number of Witches" + const.emoji_witches + ":", value=variable.witches_no, inline=True)
+
     msg = await ctx.message.channel.send(embed=embed)
-    for role in variable.role_no_emoji_dict:
-      await msg.add_reaction(variable.role_no_emoji_dict[role][1])
+    for role in const.role_emoji_dict:
+      await msg.add_reaction(const.role_emoji_dict[role])
     variable.bot_message_id["settings"] = msg.id
     variable.last_ctx = ctx
   
