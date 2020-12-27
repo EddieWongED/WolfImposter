@@ -7,7 +7,12 @@ emoji_6 = "6️⃣"
 emoji_7 = "7️⃣"
 emoji_8 = "8️⃣"
 emoji_9 = "9️⃣"
-emoji_check = '✅'
+emoji_check = "✅"
+emoji_witches = "🧙"
+emoji_players = "🧍"
+emoji_prophets = "📖"
+emoji_wolves = "🐺"
+
 numbers = {1:emoji_1, 2:emoji_2, 3:emoji_3, 4:emoji_4, 5:emoji_5, 6:emoji_6, 7:emoji_7, 8:emoji_8, 9:emoji_9}
 
 commands = {
@@ -29,6 +34,14 @@ settings_str = '''Settings:
 
 starting_str = '''Waiting for players to join...
 React on the tick to join'''
+
+players_str = '''React to choice the number of players'''
+
+witches_str = '''React to choice the number of witches'''
+
+wolves_str = '''React to choice the number of wolves'''
+
+prophets_str = '''React to choice the number of prophets'''
 
 tooManyRoleError = '''***Error:***
 >>> ```css

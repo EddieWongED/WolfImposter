@@ -10,7 +10,8 @@ class Witches(commands.Cog):
   
   @commands.command(aliases=const.commands["witches"])
   async def witches(self, ctx):
-    msg = await ctx.message.channel.send('>>> ```Number of witches: ```')
+    embed = discord.Embed(title="Witches", description=const.witches_str, color=0xffff00)
+    msg = await ctx.message.channel.send(embed = embed)
     variable.bot_message_id["witches"] = msg.id
     for i in range(1, 4):
       await msg.add_reaction(const.numbers[i])

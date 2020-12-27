@@ -22,8 +22,22 @@ async def unload(ctx, extension):
 
 @client.command(aliases = ['rl'])
 async def reload(ctx, extension):
-  client.unload_extension(f'cogs.{extension}')
+  try:
+    client.unload_extension(f'cogs.{extension}')
+  except Exception as e:
+    print(f"Failed to unload extension {extension}, error: {e}")
   client.load_extension(f'cogs.{extension}')
+  await ctx.message.add_reaction(const.emoji_check)
+
+@client.command(aliases = ['rlall'])
+async def reloadall(ctx):
+  for extension in os.listdir('./cogs'):
+    if extension.endswith(".py"):
+      try:
+          client.unload_extension(str("cogs." + extension)[:-3])
+          client.load_extension(str("cogs." + extension)[:-3])
+      except Exception as e:
+        print(f"Failed to load/reload extension {extension}, error: {e}")
   await ctx.message.add_reaction(const.emoji_check)
 
 @client.command(aliases = ['t'])
@@ -37,7 +51,7 @@ def main():
       try:
           client.load_extension(str("cogs." + extension)[:-3])
       except Exception as e:
-        print(f"Failed to load extension {extension} Error: {e}")
+        print(f"Failed to load extension {extension}, error: {e}")
 
   # initializate bot_message_id
   for command in const.commands:

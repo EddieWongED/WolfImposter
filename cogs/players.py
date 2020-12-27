@@ -10,7 +10,8 @@ class Players(commands.Cog):
   
   @commands.command(aliases=const.commands["players"])
   async def players(self, ctx):
-    msg = await ctx.message.channel.send('>>> ```Number of players: ```')
+    embed = discord.Embed(title="Players", description=const.players_str, color=0xffff00)
+    msg = await ctx.message.channel.send(embed = embed)
     variable.bot_message_id["players"] = msg.id
     for i in range(1, 10):
       await msg.add_reaction(const.numbers[i])

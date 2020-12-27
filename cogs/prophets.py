@@ -10,7 +10,8 @@ class Prophets(commands.Cog):
   
   @commands.command(aliases=const.commands["prophets"])
   async def prophets(self, ctx):
-    msg = await ctx.message.channel.send('>>> ```Number of prophets: ```')
+    embed = discord.Embed(title="Prophets", description=const.prophets_str, color=0xffff00)
+    msg = await ctx.message.channel.send(embed = embed)
     variable.bot_message_id["prophets"] = msg.id
     for i in range(1, 4):
       await msg.add_reaction(const.numbers[i])

@@ -10,7 +10,8 @@ class Wolves(commands.Cog):
 
   @commands.command(aliases=const.commands["wolves"])
   async def wolves(self, ctx):
-    msg = await ctx.message.channel.send('>>> ```Number of wolves: ```')
+    embed = discord.Embed(title="Wolves", description=const.wolves_str, color=0xffff00)
+    msg = await ctx.message.channel.send(embed = embed)
     variable.bot_message_id["wolves"] = msg.id
     for i in range(1, 4):
       await msg.add_reaction(const.numbers[i])
