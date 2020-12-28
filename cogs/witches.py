@@ -8,20 +8,31 @@ class Witches(commands.Cog):
   def __init__(self, bot):
     self.bot = bot
   
+  def createEmbed():
+    embed = discord.Embed(title="Witches" + const.emoji_witches, description=const.witches_str, color=0xffff00)
+    embed.add_field(name = "Now: ", value=variable.witches_no)
+    embed.add_field(name = "Max: ", value=const.witches_max)
+    embed.add_field(name = "Min: ", value=const.witches_min)
+    return embed
+  
   @commands.command(aliases=const.commands["witches"])
   async def witches(self, ctx):
-    embed = discord.Embed(title="Witches", description=const.witches_str, color=0xffff00)
-    msg = await ctx.message.channel.send(embed = embed)
+    global msg
+    msg = await ctx.message.channel.send(embed = Witches.createEmbed())
     variable.bot_message_id["witches"] = msg.id
-    for i in range(1, 4):
-      await msg.add_reaction(const.numbers[i])
+    await msg.add_reaction(const.emoji_plus)
+    await msg.add_reaction(const.emoji_minus)
 
   @commands.Cog.listener()
   async def on_raw_reaction_add(self, payload):
-    if payload.message_id == variable.bot_message_id["witches"]:
-      for number in const.numbers:
-        if const.numbers[number] == payload.emoji.name:
-          variable.witches_no = number
+    global msg
+    if payload.message_id == variable.bot_message_id["witches"] and not payload.member.bot:
+      if const.emoji_plus == payload.emoji.name and variable.witches_no < const.witches_max:
+        variable.witches_no +=1
+        await msg.edit(embed = Witches.createEmbed())
+      elif const.emoji_minus == payload.emoji.name and variable.witches_no > 0:
+        variable.witches_no -=1
+        await msg.edit(embed = Witches.createEmbed())
 
 def setup(bot):
   bot.add_cog(Witches(bot))

@@ -7,21 +7,32 @@ class Prophets(commands.Cog):
 
   def __init__(self, bot):
     self.bot = bot
+
+  def createEmbed():
+    embed = discord.Embed(title="Prophets" + const.emoji_prophets, description=const.prophets_str, color=0xffff00)
+    embed.add_field(name = "Now: ", value=variable.prophets_no)
+    embed.add_field(name = "Max: ", value=const.prophets_max)
+    embed.add_field(name = "Min: ", value=const.prophets_min)
+    return embed
   
   @commands.command(aliases=const.commands["prophets"])
   async def prophets(self, ctx):
-    embed = discord.Embed(title="Prophets", description=const.prophets_str, color=0xffff00)
-    msg = await ctx.message.channel.send(embed = embed)
+    global msg
+    msg = await ctx.message.channel.send(embed = Prophets.createEmbed())
     variable.bot_message_id["prophets"] = msg.id
-    for i in range(1, 4):
-      await msg.add_reaction(const.numbers[i])
+    await msg.add_reaction(const.emoji_plus)
+    await msg.add_reaction(const.emoji_minus)
 
   @commands.Cog.listener()
   async def on_raw_reaction_add(self, payload):
-    if payload.message_id == variable.bot_message_id["prophets"]:
-      for number in const.numbers:
-        if const.numbers[number] == payload.emoji.name:
-          variable.prophets_no = number
+    global msg
+    if payload.message_id == variable.bot_message_id["prophets"] and not payload.member.bot:
+      if const.emoji_plus == payload.emoji.name and variable.prophets_no < const.prophets_max:
+        variable.prophets_no +=1
+        await msg.edit(embed = Prophets.createEmbed())
+      elif const.emoji_minus == payload.emoji.name and variable.prophets_no > const.prophets_min:
+        variable.prophets_no -=1
+        await msg.edit(embed = Prophets.createEmbed())
 
 def setup(bot):
   bot.add_cog(Prophets(bot))

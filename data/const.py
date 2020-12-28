@@ -17,6 +17,16 @@ emoji_minus = "➖"
 
 numbers = {1:emoji_1, 2:emoji_2, 3:emoji_3, 4:emoji_4, 5:emoji_5, 6:emoji_6, 7:emoji_7, 8:emoji_8, 9:emoji_9}
 
+witches_max = 3
+witches_min = 0
+prophets_max = 3
+prophets_min = 0
+wolves_max = 3
+wolves_min = 1
+players_max = 10
+players_min = 4
+
+
 commands = {
 "settings": ["setting", "set", "s"], 
 "players": ["player", "play", "p"], 
@@ -24,8 +34,9 @@ commands = {
 "witches": ["witch"],
 "prophets": ["prophet","prop"], 
 "start": ["begin"], 
-"help": ["starter"], 
-"role": ["role"]}
+"help": ["starter", "guide"], 
+"role": ["role"],
+"initialization": ["initialisation", "initial", "init", "ini"]}
 
 role_emoji_dict = {
   "players": emoji_players,
@@ -56,3 +67,7 @@ tooManyRoleError = '''***Error:***
 As the number of roles is greater than the number of players, the game is stopped.```'''
 
 GameStart = 'Players in game match the number of players, the game is starting.'
+
+creating_channel_title = {"wolf":"Seems like you dont have wolf channel yet...\n", "witch":"Seems like you dont have witch channel yet...\n", "prophet":"Seems like you dont have prophet channel yet...\n"}
+
+creating_channel_description = {"wolf":"Creating wolf-channel...", "witch":"Creating witch-channel...", "prophet":"Creating prophet-channel..."}

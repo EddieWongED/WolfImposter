@@ -8,7 +8,7 @@ class Help(commands.Cog):
     self.bot = bot
 
   @commands.command(aliases=const.commands["help"])
-  async def guide(self, ctx):
+  async def help(self, ctx):
     print("testing")
     await ctx.send(const.settings_str)
 

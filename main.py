@@ -8,6 +8,7 @@ from keep_alive import keep_alive
 
 prefix = "$"
 client = commands.Bot(command_prefix = prefix)
+client.remove_command("help")
 
 @client.command(aliases = ['l'])
 async def load(ctx, extension):
@@ -29,7 +30,7 @@ async def reload(ctx, extension):
   client.load_extension(f'cogs.{extension}')
   await ctx.message.add_reaction(const.emoji_check)
 
-@client.command(aliases = ['rlall'])
+@client.command(aliases = ['rlall','rla'])
 async def reloadall(ctx):
   for extension in os.listdir('./cogs'):
     if extension.endswith(".py"):
