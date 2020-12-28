@@ -19,7 +19,7 @@ class Start(commands.Cog):
 
   @commands.command()
   async def teststart(self, ctx):
-    await roundWolf(self, ctx)
+    await startgame(ctx)
     # await startgame(ctx)
 
   @commands.command(aliases=['ri'])
@@ -32,23 +32,23 @@ class Start(commands.Cog):
     if payload.message_id != variable.bot_message_id["start"]:
       return
     if payload.emoji.name == const.emoji_check and payload.member.name not in variable.players_joined and not payload.member.bot:
-      variable.players_joined.append(payload.member.name)
+      variable.players_joined.append(payload.member)
 
   
 
 def createlist():
   role = []
-  trash = variable.players_no - variable.wolves_no - variable.witches_no - variable.prophets_no
-  for _ in range(variable.wolves_no):
-    role.append('wolf')
-  for _ in range(variable.witches_no):
-    role.append('witch')
-  for _ in range(variable.prophets_no):
-    role.append('prophet')
-  for _ in range(trash):
-    role.append('trash')
+  # trash = variable.players_no - variable.wolves_no - variable.witches_no - variable.prophets_no
+  # for _ in range(variable.wolves_no - 1):
+  #   role.append(variable.wolf_role)
+  # for _ in range(variable.witches_no):
+  #   role.append('witch')
+  # for _ in range(variable.prophets_no):
+  #   role.append('prophet')
+  # for _ in range(trash):
+  #   role.append('trash')
   random.shuffle(role)
-  role.insert(-1,'wolf')
+  role.insert(0,variable.wolf_role)
   print(f'Role: {role}')
   return role
 
@@ -57,15 +57,21 @@ def genRoleDict():
   role = createlist()
   temp_players = variable.players_joined[:]
   random.shuffle(temp_players)
-  for i in range(len(variable.players_joined)):
-    try:
-      variable.role_dict[temp_players.pop()] = role.pop()
-    except:
-      variable.role_dict[temp_players.pop()] = 'trash'
+  print(variable.players_joined)
+  # variable.role_dict[temp_players[0]] = role[0]
+  for i in range(0,len(variable.players_joined)):
+    variable.role_dict[temp_players[i]] = role[i]
+  
+
+async def assignRoles():
+  for player in variable.role_dict:
+    await player.add_roles(variable.role_dict[player])
 
 async def startgame(ctx):
   genRoleDict()
+  await assignRoles()
   await ctx.send(variable.role_dict)
+  # await variable.wolf_channel.send('Hi')
 
 async def roundWolf(self, ctx):
   guild = ctx.guild

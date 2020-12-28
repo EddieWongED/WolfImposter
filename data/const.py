@@ -8,6 +8,7 @@ emoji_7 = "7️⃣"
 emoji_8 = "8️⃣"
 emoji_9 = "9️⃣"
 emoji_check = "✅"
+emoji_cross = "❌"
 emoji_witches = "🧙"
 emoji_players = "🧍"
 emoji_prophets = "📖"
@@ -68,6 +69,28 @@ As the number of roles is greater than the number of players, the game is stoppe
 
 GameStart = 'Players in game match the number of players, the game is starting.'
 
-creating_channel_title = {"wolf":"Seems like you dont have wolf channel yet...\n", "witch":"Seems like you dont have witch channel yet...\n", "prophet":"Seems like you dont have prophet channel yet...\n"}
+creating_channel_title = {"wolves":"Seems like you dont have wolves channel yet...\n", "witches":"Seems like you dont have witches channel yet...\n", "prophets":"Seems like you dont have prophets channel yet...\n"}
 
-creating_channel_description = {"wolf":"Creating wolf-channel...", "witch":"Creating witch-channel...", "prophet":"Creating prophet-channel..."}
+creating_channel_description = {"wolves":"Creating wolves-channel...", "witches":"Creating witches-channel...", "prophets":"Creating prophets-channel..."}
+
+creating_role_title = {"wolves":"Seems like you dont have wolves role yet...\n", "witches":"Seems like you dont have witches role yet...\n", "prophets":"Seems like you dont have prophets role yet...\n", "villagers":"Seems like you dont have villagers role yet...\n"}
+
+creating_role_description = {"wolves":"Creating wolves role...", "witches":"Creating witches role...", "prophets":"Creating prophets role...", "villagers": "Creating villagers role..."}
+
+create_table_query = '''
+      CREATE TABLE IF NOT EXISTS main(
+      guild_id INTEGER,
+      wolves_channel_id INTEGER,
+      witches_channel_id INTEGER,
+      prophets_channel_id INTEGER,
+      category_id INTEGER,
+      villagers_role_id INTEGER,
+      wolves_role_id INTEGER,
+      witches_role_id INTEGER,
+      prophets_role_id INTEGER,
+      players_no INTEGER,
+      wolves_no INTEGER,
+      witches_no INTEGER,
+      prophets_no INTEGER
+      )
+  '''
