@@ -1,0 +1,9 @@
+guild_id = ctx.guild.id
+db = sqlite3.connect("main.sqlite")
+cursor = db.cursor()
+cursor.execute(f"SELECT wolves_channel_id, witches_channel_id, prophets_channel_id FROM main WHERE guild_id = {guild_id}")
+db.commit()
+wolves_channel_id, witches_channel_id, prophets_channel_id = cursor.fetchone()
+wolves_channel = self.bot.get_guild(guild_id).get_channel(wolves_channel_id)
+witches_channel = self.bot.get_guild(guild_id).get_channel(witches_channel_id)
+prophets_channel = self.bot.get_guild(guild_id).get_channel(prophets_channel_id)
